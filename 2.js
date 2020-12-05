@@ -1,7 +1,6 @@
 const fs = require('fs');
 
-
-let i = fs.readFileSync('./2.txt', 'utf-8');
+let i = fs.readFileSync('./inputs/2.txt', 'utf-8');
 let matches = 0;
 let matches2 = 0;
 
