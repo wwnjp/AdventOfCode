@@ -29,11 +29,12 @@ i.split('\n')
 		ids[seatId] = 1;
 		// keep track of the max seatId we've found
 		max = Math.max(max, seatId);
+		// Keep track of the min seatId so we know where the numbers start
+		min = Math.min(max, seatId);
 		//console.log(`Row ${row}, column, ${col}, seatId ${seatId}`);
 	});
 
 console.log('PART 1: Max seatId', max);
 // Find the index of the one we haven't found from above.
-// small cheat here: since looking at the values we found that the first 100 rows aren't used,
 // we can chop them out. Here !x is a shorthand for (x === 0)
-console.log('PART 2: Your Seat ', ids.findIndex((x, i) => i > 100 && !x));
+console.log('PART 2: Your Seat ', ids.findIndex((x, i) => i > min && !x));
