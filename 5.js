@@ -1,16 +1,17 @@
 const fs = require('fs');
-const _TR = {'B':1, 'R':1, 'F':0, 'L':0};
 
-let i = fs.readFileSync('./inputs/5.txt', 'utf-8');
+const _TR = {'B':1, 'R':1, 'F':0, 'L':0};
+const i = fs.readFileSync('./inputs/5.txt', 'utf-8');
 let max = 0;
 let ids = Array(2048).fill(0);
 
 i.split('\n')
-	.filter(f => f.length > 0)
-	.map(f => f.replace(/./g, c => _TR[c]))
-	.forEach(f => {
-		let [row, col] = [f.slice(0, 7), f.slice(7)].map(x => parseInt(x, 2));
-		let seatId = row * 8 + col;
+	.filter(_ => _.length)
+	.map(_ => _.replace(/./g, c => _TR[c]))
+	.map(_ => parseInt(_, 2))
+	.forEach(_ => {
+		const [row, col] = [_>>3, _&7];
+		const seatId = row * 8 + col;
 		
 		ids[seatId] = seatId;
 		max = Math.max(max, seatId);
