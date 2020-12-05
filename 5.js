@@ -9,8 +9,7 @@ i.split('\n')
 	.filter(f => f.length > 0)
 	.map(f => f.replace(/./g, c => _TR[c]))
 	.forEach(f => {
-		let row = parseInt(f.substr(0, 7), 2);
-		let col = parseInt(f.substr(7, 3), 2);
+		let [row, col] = [f.slice(0, 7), f.slice(7)].map(x => parseInt(x, 2));
 		let seatId = row * 8 + col;
 		
 		ids[seatId] = seatId;
