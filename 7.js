@@ -29,10 +29,13 @@ const countKey = search => {
 	}
 };
 
+Array.prototype.sum = function() {
+	return this.reduce((a, b) => a + (b.length ? b.sum() : b), 0);
+}
+
 let sum2 = [];
 const howManyBags = (search, num) => {
-	sum2.push(num);
-	const l = o[search].map(b => {
+	return o[search].map(b => {
 		if (b === 'no other bags') {
 			return num;
 		}
@@ -40,12 +43,10 @@ const howManyBags = (search, num) => {
 			return howManyBags(b.replace(/\d+\s/, '').replace('bags', 'bag'), parseInt(b) * num);
 		}
 	});
-
-	return l.reduce((a, b) => a + b, 0);
 };
 
 countKey(__KEY);
 console.log('PART 1', dedupe(matches).length);
 
-howManyBags(__KEY, 1);
-console.log('PART 2: ', sum2.reduce((a, b) => a + b, 0) - 1);
+sum2 = howManyBags(__KEY, 1);
+console.log('PART 2', sum2.sum());
