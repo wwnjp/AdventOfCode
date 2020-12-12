@@ -1,10 +1,10 @@
 const fs = require('fs');
-let dir = fs.readFileSync('./inputs/12.txt', 'utf-8').trim().split('\n');
+const dir = fs.readFileSync('./inputs/12.txt', 'utf-8').trim().split('\n');
 
+const H = 'NESW'.split('');
 let _e = 0;
 let _n = 0;
 let _h = 1;
-const H = 'NESW'.split('');
 
 const go = (d, v) => {
 	switch(d) {
@@ -12,7 +12,6 @@ const go = (d, v) => {
 		case 'S': _n -= v; break;
 		case 'E': _e += v; break;
 		case 'W': _e -= v; break;
-		default: break;
 	}
 };
 
@@ -25,10 +24,9 @@ dir.forEach(l => {
 		case 'S':
 		case 'E':
 		case 'W': go(d, v); break;
-		case 'L': _h -= (v / 90); _h %= 4; _h = _h<0?_h+4:_h; break;
+		case 'L': _h -= (v / 90); _h %= 4; _h = _h < 0 ? _h + 4: _h; break;
 		case 'R': _h += (v / 90); _h %= 4; break;
 		case 'F': go(H[_h], v); break;
-		default: break;
 	}
 });
 

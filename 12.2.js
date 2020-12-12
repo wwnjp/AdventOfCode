@@ -1,32 +1,18 @@
 const fs = require('fs');
-let dir = fs.readFileSync('./inputs/12.txt', 'utf-8').trim().split('\n');
+const dir = fs.readFileSync('./inputs/12.txt', 'utf-8').trim().split('\n');
 
 let _es = 0, _ew = 10;
 let _ns = 0, _nw = 1;
+let _t;
 
-const l = v => {
-	// 90 x , y   -> y , -x;
-	// 180 x, y -> -x, -y;
-	// 270 x, y -> -y, x;
-
+// 90 x , y   -> y , -x;
+// 180 x, y -> -x, -y;
+// 270 x, y -> -y, x;
+const r = (v, d, d2) => {
 	switch (v) {
-		case 90: t = _nw; _nw = _ew; _ew = -t; break;
+		case 90: _t = _nw * d2; _nw = _ew * d; _ew = _t; break;
 		case 180: _nw = -_nw; _ew = -_ew; break;
-		case 270: t = _nw; _nw = -_ew; _ew = t; break;
-		default: break;
-	}
-}
-
-const r = v => {
-	// 90 x , y   -> y , -x;
-	// 180 x, y -> -x, -y;
-	// 270 x, y -> -y, x;
-
-	switch (v) {
-		case 90: t = _nw; _nw = -_ew; _ew = t; break;
-		case 180: _nw = -_nw; _ew = -_ew; break;
-		case 270: t = _nw; _nw = _ew; _ew = -t; break;
-		default: break;
+		case 270: _t = _nw * d; _nw = _ew * d2; _ew = _t; break;
 	}
 }
 
@@ -36,7 +22,6 @@ const go = (d, v) => {
 		case 'S': _nw -= v; break;
 		case 'E': _ew += v; break;
 		case 'W': _ew -= v; break;
-		default: break;
 	}
 };
 
@@ -53,14 +38,13 @@ dir.forEach(_ => {
 		case 'N':
 		case 'S':
 		case 'E':
-		case 'W': go(d, v); break;
-		case 'L': l(v); break;
-		case 'R': r(v); break;
-		case 'F': go2(v); break;
-		default: break;
+		case 'W': go(d, v);    break;
+		case 'L': r(v, 1, -1); break;
+		case 'R': r(v, -1, 1); break;
+		case 'F': go2(v);      break;
 	}
 
-	console.log('>>>', _, _es, _ns, _ew, _nw);
+	//console.log('>>>', _, _es, _ns, _ew, _nw);
 });
 
 console.log('PART 2', Math.abs(_es) + Math.abs(_ns));
