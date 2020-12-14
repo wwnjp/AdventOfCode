@@ -4,6 +4,7 @@ let notes = fs.readFileSync('./inputs/13.txt', 'utf-8').trim().split('\n');
 const busses = notes[1].split(',').map(b => b === 'x' ? -1 : parseInt(b));
 
 let minT = 0;
+// Runs just as fast without this
 //let minT = 100000000000000;
 let t = minT;
 
@@ -18,6 +19,8 @@ const test = (t) => {
 	for (var i = 0; i < busses.length; i++) {
 		if (busses[i] > 0) {
 			if ((t + i) % busses[i] === 0) {
+				// This is the critical section that ups the 
+				// increment as we get more and more matches
 				localMatch++;
 				if (localMatch > numMatch) {
 					numMatch++;
