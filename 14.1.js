@@ -10,11 +10,11 @@ const applyMask = v => {
 	// Convert the value to 36bit string
 	const vv = parseInt(v).toString(2).padStart(36, '0');
 	
-	return parseInt(_mask					// Take the mask
-		.split('')							// Look at every bit
-		.map(b => parseInt(b))				// Run it through a parseInt(), if it's 1, or 0, return it, X will throw NaN
+	return parseInt(_mask                   // Take the mask
+		.split('')                          // Look at every bit
+		.map(b => parseInt(b))              // Run it through a parseInt(), if it's 1, or 0, return it, X will throw NaN
 		.map((b, i) => isNaN(b) ? vv[i] : b)// for each (b)it, if it's NaN return the bit in the slot vv[i], otherwise, b 
-		.join(''), 2);						// smash it back together, convert to number, \o/
+		.join(''), 2);                      // smash it back together, convert to number, \o/
 }
 
 
