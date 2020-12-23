@@ -4,8 +4,8 @@ const input = fs.readFileSync('./inputs/22.txt', 'utf-8').trim().split('\n\n');
 const players = input.map(i => i.split(':\n')[1].split('\n').map(Number));
 
 while (players.every(p => p.length)) {
-	let plays = players.map(p => p.shift());
-	let winner = plays.indexOf(Math.max(...plays));
+	const plays = players.map(p => p.shift());
+	const winner = plays.indexOf(Math.max(...plays));
 	players[winner].push(...plays.sort((a, b) => a > b ? -1 : 1));
 }
 
